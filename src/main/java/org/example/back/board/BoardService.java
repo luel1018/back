@@ -1,35 +1,43 @@
 package org.example.back.board;
 
+import org.example.back.board.model.Board;
+import lombok.RequiredArgsConstructor;
 import org.example.back.board.model.BoardDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    public BoardService(BoardRepository boardRepository) {
-        this.boardRepository = boardRepository;
+    public BoardDto.RegRes register(BoardDto.RegReq dto) {
+        Board entity = boardRepository.save(dto.toEntity());
+
+        return BoardDto.RegRes.from(entity);
     }
 
-    public void register(BoardDto.Reg dto, String writerEmail) {
-        boardRepository.register(dto, writerEmail);
+    public List<BoardDto.ListRes> list() {
+        List<Board> boardList = boardRepository.findAll();
+        return boardList.stream().map(BoardDto.ListRes::from).toList();
     }
 
-    public BoardDto.Read read(int idx) {
-        return boardRepository.read(idx);
+    public BoardDto.ReadRes read(Long idx) {
+        Board board = boardRepository.findById(idx).orElseThrow();
+        return BoardDto.ReadRes.from(board);
     }
 
-    public List<BoardDto.Read> list() {
-        return boardRepository.list();
+    public BoardDto.RegRes update(Long idx, BoardDto.RegReq dto) {
+        Board board = boardRepository.findById(idx).orElseThrow();
+        board.update(dto);
+
+        boardRepository.save(board);
+
+        return BoardDto.RegRes.from(board);
     }
 
-    public boolean update(int idx, BoardDto.Update dto, String writerEmail) {
-        return boardRepository.update(idx, dto, writerEmail) > 0;
-    }
-
-    public boolean delete(int idx, String writerEmail) {
-        return boardRepository.delete(idx, writerEmail) > 0;
+    public void delete(Long idx) {
+        boardRepository.deleteById(idx);
     }
 }

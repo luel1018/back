@@ -1,100 +1,64 @@
 package org.example.back.board.model;
 
+import lombok.*;
+
 public class BoardDto {
-    public static class Reg {
+    @Getter
+    public static class RegReq {
         private String title;
         private String contents;
 
-        public Reg() {
-        }
-
-        public Reg(String title, String contents) {
-            this.title = title;
-            this.contents = contents;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getContents() {
-            return contents;
-        }
-
-        public void setContents(String contents) {
-            this.contents = contents;
+        public Board toEntity() {
+            return Board.builder()
+                    .title(this.title)
+                    .contents(this.contents)
+                    .build();
         }
     }
 
-    public static class Update {
+    @Builder
+    @Getter
+    public static class RegRes {
+        private Long idx;
         private String title;
         private String contents;
 
-        public Update() {
-        }
-
-        public Update(String title, String contents) {
-            this.title = title;
-            this.contents = contents;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getContents() {
-            return contents;
-        }
-
-        public void setContents(String contents) {
-            this.contents = contents;
+        public static RegRes from(Board entity) {
+            return RegRes.builder()
+                    .idx(entity.getIdx())
+                    .title(entity.getTitle())
+                    .contents(entity.getContents())
+                    .build();
         }
     }
 
-    public static class Read {
-        private int idx;
+    @Builder
+    @Getter
+    public static class ListRes {
+        private Long idx;
+        private String title;
+
+        public static ListRes from(Board entity) {
+            return ListRes.builder()
+                    .idx(entity.getIdx())
+                    .title(entity.getTitle())
+                    .build();
+        }
+    }
+
+    @Builder
+    @Getter
+    public static class ReadRes {
+        private Long idx;
         private String title;
         private String contents;
 
-        public Read() {
-        }
-
-        public Read(int idx, String title, String contents) {
-            this.idx = idx;
-            this.title = title;
-            this.contents = contents;
-        }
-
-        public int getIdx() {
-            return idx;
-        }
-
-        public void setIdx(int idx) {
-            this.idx = idx;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getContents() {
-            return contents;
-        }
-
-        public void setContents(String contents) {
-            this.contents = contents;
+        public static ReadRes from(Board entity) {
+            return ReadRes.builder()
+                    .idx(entity.getIdx())
+                    .title(entity.getTitle())
+                    .contents(entity.getContents())
+                    .build();
         }
     }
 }
