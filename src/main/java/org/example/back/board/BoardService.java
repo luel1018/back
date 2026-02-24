@@ -1,11 +1,11 @@
 package org.example.back.board;
 
 import org.example.back.board.model.BoardDto;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class BoardService {
     private final BoardRepository boardRepository;
 
@@ -13,8 +13,8 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
-    public void register(BoardDto.Reg dto) {
-        boardRepository.register(dto);
+    public void register(BoardDto.Reg dto, String writerEmail) {
+        boardRepository.register(dto, writerEmail);
     }
 
     public BoardDto.Read read(int idx) {
@@ -23,5 +23,13 @@ public class BoardService {
 
     public List<BoardDto.Read> list() {
         return boardRepository.list();
+    }
+
+    public boolean update(int idx, BoardDto.Update dto, String writerEmail) {
+        return boardRepository.update(idx, dto, writerEmail) > 0;
+    }
+
+    public boolean delete(int idx, String writerEmail) {
+        return boardRepository.delete(idx, writerEmail) > 0;
     }
 }
