@@ -4,22 +4,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Builder
 @Entity
-public class User {
+public class EmailVerify {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
     private String email;
-    private String name;
-    @Setter
-    private String password;
-    @Setter
-    private boolean enable;
-    private String role;
+    private String uuid;
 }

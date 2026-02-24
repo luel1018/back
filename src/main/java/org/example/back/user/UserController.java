@@ -1,22 +1,30 @@
 package org.example.back.user;
 
 import lombok.RequiredArgsConstructor;
+import org.example.back.user.model.AuthUserDetails;
 import org.example.back.user.model.UserDto;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
+import org.example.back.utils.JwtUtil;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/user")
 @RestController
-@RequiredArgsConstructor    // TODO: Lombok 기능, final이 붙은 변수만 매개변수로 받는 생성자
+@RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final AuthenticationManager authenticationManager;
 
-//    public UserController(UserService userService) {
-//        this.userService = userService;
-//    }
 
+    @GetMapping("/verify")
+    public ResponseEntity verify(String uuid) {
+
+        userService.verify(uuid);
+
+        return ResponseEntity.ok("asd");
+    }
 
     @PostMapping("/signup")
     public ResponseEntity signup(@RequestBody UserDto.SignupReq dto) {
@@ -27,12 +35,20 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody UserDto.LoginReq dto) {
-        try {
-            UserDto.LoginRes result = userService.login(dto);
-            return ResponseEntity.ok(result);
-        } catch (EmptyResultDataAccessException emptyException) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("실패");
+        UsernamePasswordAuthenticationToken token =
+                new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword(), null);
+
+        Authentication authentication = authenticationManager.authenticate(token);
+        AuthUserDetails user = (AuthUserDetails) authentication.getPrincipal();
+
+        if(user != null) {
+            String jwt = JwtUtil.createToken(user.getIdx(), user.getUsername(), user.getRole());
+            return ResponseEntity.ok().header("Set-Cookie", "ATOKEN=" + jwt + "; Path=/").build();
         }
+
+        return ResponseEntity.ok("로그인 실패");
+
     }
+
 
 }
