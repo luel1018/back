@@ -5,8 +5,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: 1018luper@gmail.com
-    password:
+    username: luper1018@yonsei.ac.kr
+    password: vewgbdbhyhselpzw
     properties:
       mail:
         smtp:
@@ -18,7 +18,7 @@ spring:
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: "jdbc:mariadb://192.168.230.113:3306/tests"
+    url: "jdbc:mariadb://192.168.230.113:3306/test"
     username: root
     password: qwer1234
 
