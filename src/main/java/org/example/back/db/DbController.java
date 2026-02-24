@@ -1,4 +1,4 @@
-package org.example.spring01.db;
+package org.example.back.db;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

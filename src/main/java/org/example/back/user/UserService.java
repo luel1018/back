@@ -1,7 +1,7 @@
-package org.example.spring02.user;
+package org.example.back.user;
 
-import org.example.spring02.user.model.User;
-import org.example.spring02.user.model.UserDto;
+import org.example.back.user.model.User;
+import org.example.back.user.model.UserDto;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 

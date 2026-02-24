@@ -1,4 +1,4 @@
-package org.example.spring02.reply.model;
+package org.example.back.reply.model;
 
 import lombok.*;
 

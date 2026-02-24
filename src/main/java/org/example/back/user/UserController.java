@@ -1,7 +1,7 @@
-package org.example.spring02.user;
+package org.example.back.user;
 
 import lombok.RequiredArgsConstructor;
-import org.example.spring02.user.model.UserDto;
+import org.example.back.user.model.UserDto;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

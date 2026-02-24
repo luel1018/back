@@ -1,4 +1,4 @@
-package org.example.spring02.user.model;
+package org.example.back.user.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

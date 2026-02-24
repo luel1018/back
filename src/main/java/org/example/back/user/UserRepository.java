@@ -1,6 +1,6 @@
-package org.example.spring02.user;
+package org.example.back.user;
 
-import org.example.spring02.user.model.User;
+import org.example.back.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

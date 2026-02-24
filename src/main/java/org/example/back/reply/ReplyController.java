@@ -1,7 +1,7 @@
-package org.example.spring02.reply;
+package org.example.back.reply;
 
 import lombok.RequiredArgsConstructor;
-import org.example.spring02.reply.model.ReplyDto;
+import org.example.back.reply.model.ReplyDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

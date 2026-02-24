@@ -1,4 +1,4 @@
-package org.example.spring01.db;
+package org.example.back.db;
 
 public class DbDto {
     private String var01;
