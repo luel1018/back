@@ -51,8 +51,6 @@ public class UserService implements UserDetailsService {
 
     }
 
-
-    // 시큐리티랑 상관 없는 내 서비스
     public UserDetails login(UserDto.LoginReq dto) throws UsernameNotFoundException {
         System.out.println("UserService 실행됨");
 
@@ -60,11 +58,9 @@ public class UserService implements UserDetailsService {
 
 
         if(passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
-            // 로그인 성공
         }
 
         if(user.isEnable()) {
-            // 활성 상태 확인
         }
 
 
