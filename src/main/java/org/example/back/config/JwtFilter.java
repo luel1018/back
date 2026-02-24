@@ -24,7 +24,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
         return path.startsWith("/login") ||
                 path.startsWith("/user/signup") ||
-                path.startsWith("/user/verify");
+                path.startsWith("/user/verify") ||
+                path.startsWith("/user/login");
     }
 
     @Override
@@ -32,16 +33,19 @@ public class JwtFilter extends OncePerRequestFilter {
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 if (cookie.getName().equals("ATOKEN")) {
-                    // JwtUtil에서 토큰 생성 및 확인하도록 리팩토링
-                    String username = JwtUtil.getUsername(cookie.getValue());
-                    String role = JwtUtil.getRole(cookie.getValue());
+                    try {
+                        String username = JwtUtil.getUsername(cookie.getValue());
+                        String role = JwtUtil.getRole(cookie.getValue());
 
-                    Authentication authentication = new UsernamePasswordAuthenticationToken(
-                            username,
-                            null,
-                            List.of(new SimpleGrantedAuthority(role))
-                    );
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                                username,
+                                null,
+                                List.of(new SimpleGrantedAuthority(role))
+                        );
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    } catch (Exception e) {
+                        SecurityContextHolder.clearContext();
+                    }
                 }
             }
         }
