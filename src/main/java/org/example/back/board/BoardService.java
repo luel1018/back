@@ -1,8 +1,8 @@
-package org.example.spring02.board;
+package org.example.back.board;
 
 import lombok.RequiredArgsConstructor;
-import org.example.spring02.board.model.Board;
-import org.example.spring02.board.model.BoardDto;
+import org.example.back.board.model.Board;
+import org.example.back.board.model.BoardDto;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
